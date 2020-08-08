@@ -7,6 +7,7 @@ var http = require("http");
 http
   .createServer(function (request, response) {
     homeRoute(request, response);
+    userRoute(request, response);
   })
   .listen(3000);
 console.log("Server running at http://<workspace-url>/");
@@ -20,9 +21,17 @@ function homeRoute(request, response) {
     response.write("Header\n");
     response.write("Search\n");
     response.end("Footer\n");
-  } else {
+  }
+}
+
+function userRoute(request, response) {
+  var username = request.url.replace("/", "");
+  if (username.length > 0) {
     response.writeHead(200, { "Content-Type": "text/plain" });
-    response.end("Not Found\n");
+
+    response.write("Header\n");
+    response.write(username + "\n");
+    response.end("Footer\n");
   }
 }
 //if url == "/" && GET
