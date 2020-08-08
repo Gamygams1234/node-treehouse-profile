@@ -6,17 +6,25 @@
 var http = require("http");
 http
   .createServer(function (request, response) {
-    response.writeHead(200, { "Content-Type": "text/plain" });
-    setInterval(function () {
-      response.write(new Date() + "\n");
-    }, 1000);
-    //  response.end("Hello World\n");
+    homeRoute(request, response);
   })
-  // this is our server number
   .listen(3000);
 console.log("Server running at http://<workspace-url>/");
 
 //2. Handle HTTP route GET / and POST / i.e. Home
+
+function homeRoute(request, response) {
+  if (request.url === "/") {
+    response.writeHead(200, { "Content-Type": "text/plain" });
+
+    response.write("Header\n");
+    response.write("Search\n");
+    response.end("Footer\n");
+  } else {
+    response.writeHead(200, { "Content-Type": "text/plain" });
+    response.end("Not Found\n");
+  }
+}
 //if url == "/" && GET
 //show search
 //if url == "/" && POST
